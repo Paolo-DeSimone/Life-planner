@@ -190,13 +190,14 @@ class Project extends User{
     }
 }
 
-class montlybudget extends User {
+class montlybudget extends Project {
     static invesments = User.getIncome() * 30 / 100; // accedo ad una proprietà statica di User con un metodo getter
     static expances = User.getIncome() * 30 / 100;
     static savings = User.getIncome() * 40 / 100;
 
     constructor() {
         super(); // Chiamata al costruttore della classe base
+        this.invesments = User
     }
 
     // Sovrascrivo il metodo displayUserInfo della classe User
@@ -205,11 +206,13 @@ class montlybudget extends User {
         // Se non c'è la creazione di una istanza con "new", e quindi si scrive qualcosa tipo Project.displayUserInfo,
         // si riferisce alla classe in cui il metodo è creato, in questo caso User.
         console.log(`OVERRIDE - Investments: ${montlybudget.invesments} Expances: ${this.constructor.expances}`);
+
     }
 
     checkAffordability(){
         alert("Sei povero")
     }
 }
+export default montlybudget; // Esportiamo la classe
 
 

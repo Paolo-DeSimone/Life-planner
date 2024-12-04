@@ -16,6 +16,11 @@ originalMethod.displayUserInfo();  // Chiamato sul metodo sovrascritto nella cla
 const override = new montlybudget();
 override.displayUserInfo();  // Chiamato sul metodo sovrascritto nella classe figlia
 
+import montlybudget from 'Classes/montlybudget'; // Importiamo la classe ClasseA
+
+const a = new montlybudget()
+
+a.displayUserInfo() 
 
 /*SPUNTI PER IMPLEMENTARE IL JS ASINCRONO:
 Studiare JavaScript asincrono è il passo logico successivo. Alcuni aspetti da considerare per ampliare il progetto:
