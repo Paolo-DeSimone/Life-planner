@@ -208,7 +208,7 @@ class Utilities {
                 "Non puoi inserire un obiettivo senza destinarci un budget"
               );
             } else {
-              this.addRecordToTable(popup); // Usa "this" per accedere al metodo della classe
+              this.addRecordToTable(popup, id); // Usa "this" per accedere al metodo della classe
             }
           } else {
             alert(
@@ -270,9 +270,88 @@ class Utilities {
         // Aggiungi il popup al body
         document.body.appendChild(popup);
         break;
+
       case "EBMtable":
-        console.error(`sei qui`);
+        // Crea il popup
+        const EMBpopup = document.createElement("div");
+        EMBpopup.setAttribute("id", `${id}Popup`);
+        EMBpopup.style.position = "fixed";
+        EMBpopup.style.top = "50%";
+        EMBpopup.style.left = "50%";
+        EMBpopup.style.transform = "translate(-50%, -50%)";
+        EMBpopup.style.backgroundColor = "white";
+        EMBpopup.style.border = "1px solid #ccc";
+        EMBpopup.style.padding = "20px";
+        EMBpopup.style.zIndex = "1000";
+
+        const inputFields2 = [
+          "Mese",
+          "Anno",
+          "Budget mensile",
+          "Spesa",
+          "Causale",
+          "Note",
+        ];
+
+        // Aggiungi input per ogni campo
+        inputFields2.forEach((inputField) => {
+          const label = document.createElement("label");
+          label.textContent = inputField;
+          label.style.display = "block";
+
+          let input;
+          if (inputField === "Causale") {
+            // Crea la dropdown list (select) per "Causale"
+            input = document.createElement("select");
+
+            // Aggiungi le opzioni alla dropdown
+            const options = ["casa", "salute", "ristorazione"];
+            options.forEach((optionText) => {
+              const option = document.createElement("option");
+              option.textContent = optionText;
+              input.appendChild(option);
+            });
+          } else {
+            // Crea un normale input text per gli altri campi
+            input = document.createElement("input");
+            input.setAttribute("type", "text");
+          }
+
+          input.setAttribute(
+            "name",
+            inputField.toLowerCase().replace(/\s/g, "")
+          );
+          input.setAttribute("id", inputField);
+          input.style.display = "block";
+          input.style.marginBottom = "10px";
+
+          EMBpopup.appendChild(label);
+          EMBpopup.appendChild(input);
+        });
+
+        // Bottone per aggiungere un record
+        const addButton2 = document.createElement("button");
+        addButton2.textContent = "Aggiungi Record";
+        addButton2.addEventListener("click", () => {
+          this.addRecordToTable(EMBpopup, id); // Usa "this" per accedere al metodo della classe
+        });
+
+        // Bottone per chiudere il popup
+        const closeButton2 = document.createElement("button");
+        closeButton2.textContent = "Chiudi";
+        closeButton2.style.marginLeft = "10px";
+        closeButton2.addEventListener("click", () => {
+          EMBpopup.remove();
+        });
+
+        EMBpopup.appendChild(addButton2);
+        EMBpopup.appendChild(closeButton2);
+
+        // Aggiungi il popup al body
+        document.body.appendChild(EMBpopup);
+
         break;
+
       default:
         console.error(`l'id ${id} non è supportato.`);
         break;
@@ -280,15 +359,16 @@ class Utilities {
   }
 
   // Funzione per aggiungere un record alla tabella
-  addRecordToTable(popup) {
-    const table = document.getElementById("OBMtable");
+  addRecordToTable(popup, id = "") {
+    console.log(id);
+    const table = document.getElementById(id);
     if (!table) {
       console.error("Tabella OBMtable non trovata!");
       return;
     }
 
     const row = document.createElement("tr");
-    const inputs = popup.querySelectorAll("input");
+    const inputs = popup.querySelectorAll("input, select");
 
     inputs.forEach((input) => {
       const cell = document.createElement("td");
