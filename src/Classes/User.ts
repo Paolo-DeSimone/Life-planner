@@ -1,6 +1,5 @@
 export class User {
   private members: Record<keyof UserNS.MemberTypes, any>;
-
   constructor(
     name: string,
     surname: string,
@@ -11,20 +10,24 @@ export class User {
     this.members = { name, surname, age, TMI, data };
   }
 
-  // Getter per ottenere un valore usando l'enum
   public getMember<K extends keyof UserNS.MemberTypes>(
     member: K
   ): UserNS.MemberTypes[K] {
     return this.members[member];
   }
 
-  // Setter per impostare un valore usando l'enum
-  public setMember<K extends keyof UserNS.MemberTypes>(member: K, value: UserNS.MemberTypes[K]): void {
+  public setMember<K extends keyof UserNS.MemberTypes>(
+    member: K,
+    value: UserNS.MemberTypes[K]
+  ): void {
     if (typeof value !== typeof this.members[member]) {
-      throw new Error(`Invalid type for ${member}. Expected ${typeof this.members[member]}.`);
+      throw new Error(
+        `Invalid type for ${member}. Expected ${typeof this.members[member]}.`
+      );
     }
     this.members[member] = value;
-  } 
+    UserNS.test()
+  }
 }
 
 export namespace UserNS {
@@ -45,11 +48,6 @@ export namespace UserNS {
     [UserNS.ClassMembers.Data]: Record<string, any> | undefined;
   };
 
-  export type AllowedJSONValue =
-  | string
-  | number
-  | boolean
-  | []
-  | Record<string, any>;
+  export function test(){}
 
 }
