@@ -1,0 +1,12 @@
+{
+    "name": "life-planner",
+    "version": "1.0.0",
+    "description": "A life planner app",
+    "main": "index.js",
+    "scripts": {
+        "dev": "concurrently \"tsc --watch\" \"live-server ./dist\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.0"
+    }
+}

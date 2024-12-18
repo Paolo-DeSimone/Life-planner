@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "target": "es6",               // Specifica il target ES6
+      "module": "es6",               // Usa il modulo ES6
+      "esModuleInterop": true,       // Permette l'importazione di moduli CommonJS
+      "moduleResolution": "node",    // Risoluzione moduli come in Node.js
+      "strict": true,                // Modalità stretta per la sicurezza del tipo
+      "outDir": "./dist"             // Output compilato nella cartella 'dist'
+    },
+    "include": [
+      "src/**/*"                     // Aggiungi la cartella dei tuoi file TypeScript
+    ]
+  }
+  

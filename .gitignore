@@ -1,0 +1,10 @@
+# Esclude node_modules
+node_modules/
+
+# Esclude dist
+dist/
+
+# Esclude file di log
+*.log
+
+.md
