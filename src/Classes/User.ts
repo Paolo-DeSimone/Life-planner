@@ -1,57 +1,55 @@
-class User<JSONFormatData extends { [key: string]: any }> {
-    // Proprietà protected
-    protected name: string;
-    protected surname: string;
-    protected age: number;
-    protected TMI: number;
-    protected data?: JSONFormatData;
-  
-    constructor(
-      name: string,
-      surname: string,
-      age: number,
-      TMI: number = 0,
-      data?: JSONFormatData
-    ) {
-      this.name = name;
-      this.surname = surname;
-      this.age = age;
-      this.TMI = TMI;
-      this.data = data;
-    }
-  
-    // Metodo get
-    public getMember(member: User.ClassMembers): any {
-      return this[member as keyof this];
-    }
-  
-    // Metodo set
-    public setMember(member: User.ClassMembers, value: any): void {
-      if (member in this) {
-        this[member as keyof this] = value;
-      } else {
-        throw new Error(`La proprietà ${member} non esiste.`);
-      }
-    }
+export class User {
+  private members: Record<keyof UserNS.MemberTypes, any>;
+
+  constructor(
+    name: string,
+    surname: string,
+    age: number,
+    TMI: number,
+    data?: Record<string, any>
+  ) {
+    this.members = { name, surname, age, TMI, data };
   }
-  
-  // Namespace per l'Enum (simula l'incapsulamento)
-  namespace User {
-    export enum ClassMembers {
-      Name = "name",
-      Surname = "surname",
-      Age = "age",
-      TMI = "TMI",
-      Data = "data"
-    }
+
+  // Getter per ottenere un valore usando l'enum
+  public getMember<K extends keyof UserNS.MemberTypes>(
+    member: K
+  ): UserNS.MemberTypes[K] {
+    return this.members[member];
   }
-  
-  // Esempio di utilizzo
-  const user = new User("Paolo", "De Simone", 25, 1500);
-  
-  // Accesso all'enum dal namespace della classe
-  console.log(user.getMember(User.ClassMembers.Name)); // "Paolo"
-  user.setMember(User.ClassMembers.Age, 26);
-  console.log(user.getMember(User.ClassMembers.Age));  // 26
-  
-export default User;
+
+  // Setter per impostare un valore usando l'enum
+  public setMember<K extends keyof UserNS.MemberTypes>(member: K, value: UserNS.MemberTypes[K]): void {
+    if (typeof value !== typeof this.members[member]) {
+      throw new Error(`Invalid type for ${member}. Expected ${typeof this.members[member]}.`);
+    }
+    this.members[member] = value;
+  } 
+}
+
+export namespace UserNS {
+  export enum ClassMembers {
+    Name = "name",
+    Surname = "surname",
+    Age = "age",
+    TMI = "TMI",
+    Data = "data",
+  }
+
+  // Mappa dei tipi per ogni membro
+  export type MemberTypes = {
+    [UserNS.ClassMembers.Name]: string;
+    [UserNS.ClassMembers.Surname]: string;
+    [UserNS.ClassMembers.Age]: number;
+    [UserNS.ClassMembers.TMI]: number;
+    [UserNS.ClassMembers.Data]: Record<string, any> | undefined;
+  };
+
+  export type AllowedJSONValue =
+  | string
+  | number
+  | boolean
+  | []
+  | Record<string, any>;
+
+}

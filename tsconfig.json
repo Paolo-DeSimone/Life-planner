@@ -5,7 +5,14 @@
       "esModuleInterop": true,       // Permette l'importazione di moduli CommonJS
       "moduleResolution": "node",    // Risoluzione moduli come in Node.js
       "strict": true,                // Modalità stretta per la sicurezza del tipo
-      "outDir": "./dist"             // Output compilato nella cartella 'dist'
+      "outDir": "./dist" ,            // Output compilato nella cartella 'dist'
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "alwaysStrict": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true
     },
     "include": [
       "src/**/*"                     // Aggiungi la cartella dei tuoi file TypeScript
