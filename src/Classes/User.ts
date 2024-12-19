@@ -1,8 +1,8 @@
 import { Observable, Subject } from 'rxjs';
 
 export class User {
-  private members: Record<keyof UserNS.MemberTypes, any>;
-  private membersSubject: Subject<Record<keyof UserNS.MemberTypes, any>>;
+  private members: Record<keyof UserNS.ClassMembers, any>;
+  private membersSubject: Subject<Record<keyof UserNS.ClassMembers, any>>;
 
   constructor(
     name: string,
@@ -16,19 +16,19 @@ export class User {
   }
 
   // Osservabile che emette ogni volta che i membri cambiano
-  public getMembersObservable(): Observable<Record<keyof UserNS.MemberTypes, any>> {
+  public getMembersObservable(): Observable<Record<keyof UserNS.ClassMembers, any>> {
     return this.membersSubject.asObservable();
   }
 
-  public getMember<K extends keyof UserNS.MemberTypes>(
+  public getMember<K extends keyof UserNS.ClassMembers>(
     member: K
-  ): UserNS.MemberTypes[K] {
+  ): UserNS.ClassMembers[K] {
     return this.members[member];
   }
 
-  public setMember<K extends keyof UserNS.MemberTypes>(
+  public setMember<K extends keyof UserNS.ClassMembers>(
     member: K,
-    value: UserNS.MemberTypes[K]
+    value: UserNS.ClassMembers[K]
   ): void {
     if (typeof value !== typeof this.members[member]) {
       throw new Error(
@@ -43,7 +43,7 @@ export class User {
 }
 
 export namespace UserNS {
-  export enum ClassMembers {
+  export enum MembersNames {
     Name = "name",
     Surname = "surname",
     Age = "age",
@@ -52,12 +52,12 @@ export namespace UserNS {
   }
 
   // Mappa dei tipi per ogni membro
-  export type MemberTypes = {
-    [UserNS.ClassMembers.Name]: string;
-    [UserNS.ClassMembers.Surname]: string;
-    [UserNS.ClassMembers.Age]: number;
-    [UserNS.ClassMembers.TMI]: number;
-    [UserNS.ClassMembers.Data]: Record<string, any> | undefined;
+  export type ClassMembers = {
+    [UserNS.MembersNames.Name]: string;
+    [UserNS.MembersNames.Surname]: string;
+    [UserNS.MembersNames.Age]: number;
+    [UserNS.MembersNames.TMI]: number;
+    [UserNS.MembersNames.Data]: Record<string, any> | undefined;
   };
 
   export function test() {}
