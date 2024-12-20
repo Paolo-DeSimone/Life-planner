@@ -96,4 +96,4 @@ user.getMembersObservable().subscribe((members) => {
   console.log('Membri aggiornati:', members);
 });
 
-user.setMember(UserNS.MembersNames.Name, 'Mario');
+user.setMember(UserNS.MembersNames.TMI, 20000);
