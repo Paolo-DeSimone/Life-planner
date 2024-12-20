@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life planner</title>
+    <script src="classes.js" defer></script>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <button>Menu</button>
+        <button>Long period toggle</button>
+        <button>Short period toggle</button>
+        <p>Notifications area</p>
+    </nav>
+
+    <hr>
+
+    <table id="MontlyBudget"> <!--CORTO PERIODO-->
+        <thead>
+            <tr>
+                <th>Colonna 1</th>
+                <th>Colonna 2</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Dato 1</td>
+                <!--Non ci possono essere più table data in un table row di quante table column ci siano-->
+                <td>Dato 2</td>
+            </tr>
+            <tr>
+                <td>Dato 4</td>
+                <td>Dato 5</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <hr>
+
+    <div class="table-container">
+        <table id="longPeriodGrid">
+            <thead>
+                <tr id="gridHeaders">
+                    <th class="sticky">Voce</th>
+                    <th class="sticky">Importo mensile</th>
+                    <th class="sticky">Totale</th>
+                    <th class="sticky">Eccezioni</th>
+                    <th class="sticky">Note</th>
+                </tr>
+                <tr id="MonthsColumns">
+                    <th class="sticky" colspan="5">
+                        <!-- colspan="5" sono i numeri di th nella tr sopra a questa. -->
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="body">
+                <!-- Qui le righe saranno popolate dinamicamente -->
+            </tbody>
+
+        </table>
+    </div>
+
+    <input type="number" name="" id="">
+
+    <hr>
+
+    <h1>My temp area</h1>
+    <h2>Se in .body-container in css tolgo display: block; le righe vengono aggiunge bene. Ora ho commentato i tag th e quindi le scroll bar vengono quasi come voglio io...però devo vedere: sarebbe meglio avere 1 informazione per cella invece di avere quella concatenazione di valori</h2>
+    <button id="addNewProject">AddNewProject</button>
+
+</body>
+
+</html>
