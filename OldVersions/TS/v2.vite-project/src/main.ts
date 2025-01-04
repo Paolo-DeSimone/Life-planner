@@ -13,7 +13,7 @@ const row = {
   a: { 2: 1, name: "John", age: 30, boolean: true },
 };
 const user = new User("Paolo", "De Simone", 25, 1500, row);
-
+user.getMember("name");  
 console.log(
   user.getMember(UserNS.MembersNames.Name) +
     " " +

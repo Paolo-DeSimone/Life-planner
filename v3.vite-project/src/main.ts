@@ -1,24 +1,20 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import { User } from "./models/User";
+import { UsersService } from "./services/User";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+// Creazione di un utente
+const user = new User({
+    name: 'Jane',
+    surname: 'Doe',
+    age: 30,
+    TMI: 2000,
+});
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+console.log(user.GetAllocation('OMB')); // Valore calcolato con default 80%
+console.log(user.GetAllocation('EMB')); // Valore calcolato con default 20%
+
+// Uso del servizio per cambiare l'allocazione
+const userService = new UsersService(user);
+userService.ChangeTMIallocation(70, 30);
+
+console.log(user.GetAllocation('OMB')); // Valore aggiornato con 70%
+console.log(user.GetAllocation('EMB')); // Valore aggiornato con 30%
