@@ -31,5 +31,3 @@ dist/
 
 # Esclude file di log
 *.log
-
-*.md
