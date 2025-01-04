@@ -6,53 +6,116 @@ export enum UserMembers {
     OBMpercentage = "OBMpercentage",
     EBMpercentage = "EBMpercentage",
     generalData = "generalData",
+    OMB = "OMB",
+    EMB = "EMB",
 }
 
-type UserMemberWithTypes = { 
-    [UserMembers.name]: string;
-    [UserMembers.surname]: string;
-    [UserMembers.age]: number;
-    [UserMembers.TMI]: number;
-    [UserMembers.OBMpercentage]?: number;
-    [UserMembers.EBMpercentage]?: number;
+export type UserMemberWithTypes = {
+    [UserMembers.name]: string;                     
+    [UserMembers.surname]: string;                  
+    [UserMembers.age]: number;                      
+    [UserMembers.TMI]: number;                      
+    [UserMembers.OBMpercentage]: number;           
+    [UserMembers.EBMpercentage]: number;           
     [UserMembers.generalData]?: Record<string, any>;
+    [UserMembers.OMB]?: number; // Mai valorizzato direttamente: calculateOMBandEMB lo sovrascrive. Inserito qui solo perché ci son tutti gli altri membri.
+    [UserMembers.EMB]?: number; // Mai valorizzato direttamente: calculateOMBandEMB lo sovrascrive. Inserito qui solo perché ci son tutti gli altri membri.
 }
 
+
+
+/**
+ * The class representing the application user. 
+ * 
+ * Here his Total Monlty Income (TMI) is defined, along with his Objective Montly Budget (OMB) and his Expances Montly budget (OMB).
+ * OMB represents the money that the user wants to save each month for his objectives.
+ * EMB represents the money that the user can spend each month.
+ * 
+ * The logic implemented here ensures that TMI = OMB + EMB is always a true equation and that they are never setted directly 
+ * but always using calculate_TMI_OMB_EMB(), after needed checks are done.
+ */
 export class User {
-    private OMB: number = 0;
-    private EMB: number = 0;
-
     constructor(private members: UserMemberWithTypes) {
-        const { OBMpercentage, EBMpercentage } = this.members;
-
-        this.members.OBMpercentage = OBMpercentage ?? 80; // Default 80%
-        this.members.EBMpercentage = EBMpercentage ?? 20; // Default 20%
-
-        this.calculateAllocations();
+        this.calculate_TMI_OMB_EMB(members.TMI, members.OBMpercentage, members.EBMpercentage); 
     }    
 
-    private calculateAllocations(): void {
-        const TMI = this.members.TMI;
-        this.OMB = (TMI * (this.members.OBMpercentage ?? 80)) / 100;
-        this.EMB = (TMI * (this.members.EBMpercentage ?? 20)) / 100;
-    }
-
-    Getter(member: UserMembers, getAllMembers = false): UserMemberWithTypes[keyof UserMemberWithTypes] | UserMemberWithTypes {
+    /** 
+     * Get a member or all members of class User.
+     * @param {UserMembers} member - The member to get.
+     * @param {boolean} getAllMembers - If true, returns all members.
+     * @returns {UserMemberWithTypes | UserMemberWithTypes[keyof UserMemberWithTypes]}
+     */
+    Getter(member: UserMembers, getAllMembers = false): UserMemberWithTypes | UserMemberWithTypes[keyof UserMemberWithTypes] {
         return getAllMembers ? this.members : this.members[member];
     }
 
+    /** 
+     * Set a member of class User.
+     * @param {UserMembers} member - The member to set.
+     * @param {UserMemberWithTypes[UserMembers]} value - The value to set.
+     * @throws {Error} - If the member does not exist.
+     * @returns {void}
+     * @example
+     * user.Setter(UserMembers.OBMpercentage, 70);
+    */
     Setter<K extends keyof UserMemberWithTypes>(member: K, value: UserMemberWithTypes[K]): void {
-        if (member in this.members) {
-            this.members[member] = value;
-            if (member === UserMembers.TMI || member === UserMembers.OBMpercentage || member === UserMembers.EBMpercentage) {
-                this.calculateAllocations();
-            }
-        } else {
+        if (!(member in this.members)) {
             throw new Error(`Property ${member} does not exist on UserMembers.`);
+        }
+
+        if (member === UserMembers.OMB || member === UserMembers.EMB) {
+            throw new Error(`Property ${member} must not be modified directly. Update its percentage field.`);
+        }
+
+        if (member === UserMembers.TMI) {
+            this.calculate_TMI_OMB_EMB(value as number, this.members.OBMpercentage, this.members.EBMpercentage);
+        } else if (member === UserMembers.OBMpercentage) {
+            this.updatePercentages(value as number, 100 - (value as number));
+        } else if (member === UserMembers.EBMpercentage) {
+            this.updatePercentages(100 - (value as number), value as number);
+        } else {
+            this.members[member] = value;
         }
     }
 
-    GetAllocation(type: 'OMB' | 'EMB'): number {
-        return type === 'OMB' ? this.OMB : this.EMB;
+    /**
+     * Calculate OMB and EMB values.
+     * @param {number} TMI - Total Monthly Income.
+     * @param {number} OBMperc - OMB percentage.
+     * @param {number} EMBperc - EMB percentage.
+     * @returns {void}
+     */
+    private calculate_TMI_OMB_EMB(TMI: number, OBMperc: number, EMBperc: number): void {
+        this.checkPercentages(OBMperc, EMBperc, TMI);
+        this.members.OMB = (TMI * OBMperc) / 100;
+        this.members.EMB = (TMI * EMBperc) / 100;
+    }
+
+    /**
+     * Check if OBM and EMB percentages sum up to 100.
+     * @param {number} OBMperc - OMB percentage.
+     * @param {number} EMBperc - EMB percentage.
+     * @throws {Error} - If percentages do not sum up to 100.
+     */
+    private checkPercentages(OBMperc: number, EMBperc: number, TMI?: number): void {
+        if (TMI as number < 0) {
+            throw new Error("TMI must be at least 0. 0 means you have no montly income at the moment.");
+        }
+        if (OBMperc + EMBperc !== 100) { // Questo controllo include già quello che le percentuali NON siano negative
+            throw new Error("OBMpercentage and EMBpercentage must sum up to 100.");
+        }
+    }
+
+    /**
+     * Update OBM and EMB percentages and recalculate values.
+     * @param {number} OBMperc - OMB percentage.
+     * @param {number} EMBperc - EMB percentage.
+     * @returns {void}
+     */
+    private updatePercentages(OBMperc: number, EMBperc: number): void {
+        this.checkPercentages(OBMperc, EMBperc);
+        this.members.OBMpercentage = OBMperc;
+        this.members.EBMpercentage = EMBperc;
+        this.calculate_TMI_OMB_EMB(this.members.TMI, OBMperc, EMBperc);
     }
 }
