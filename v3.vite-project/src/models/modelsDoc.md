@@ -125,3 +125,57 @@ const user = new User({
 ```
 
 Quindi non cambia quasi niente per l'inizializzazione.E allo stesso tempo ho un codice molto più sintetico, chiaro e mantenibile perché per modificare qualcosa, di base, basta cambiare `enum MemberKeys` e `type UserMemberWithTypes`.
+
+---
+
+# CLASSE OBJECTIVE
+
+La classe ha gli stessi design pattern della classe User. L'unica cosa nuova è quanto spiegato sotto.
+
+## Spread operator
+
+In questo esempio
+
+```
+this.members = {
+    ...members
+};
+```
+
+L'operatore ... esegue una copia di tutte le proprietà di members nell'oggetto this.members.
+
+Bisogna però stare attenti perché la copia può essere fatta sia "per valore", sia "per riferimento". 
+
+### Spread operator: copia per valore
+
+Nel primo caso, viene creato un nuovo oggetto e si copiano i valori di quell'oggetto. Quindi esitono 2 oggetti contenenti membri DISTINTI che hanno valori uguali. Seguono questa casistica i tipi primitivi come number, string e boolean.
+
+Esempio:
+
+```
+const obj = { 1, 2, 3};
+const newObj = { ...obj };
+
+// pop() agisce solo su newObj, non su obj.
+newObj.arr.pop();
+
+console.log(obj.arr); // 1, 2, 3, 4
+console.log(newObj.arr); 1, 2, 3
+```
+
+### Spread operator: copia per riferimento
+
+Nel secondo caso, viene sempre creato un nuovo oggetto ma i suoi valori sono dei riferimenti a quelli dell'oggetto padre. Quindi esitono 2 oggetti contenenti membri UGUALI che hanno valori uguali. Seguono questa casistica i tipi complessi come Array, Oggetti o Date.
+
+Esempio:
+
+```
+const obj = { arr: [1, 2, 3] };
+const newObj = { ...obj };
+
+// Entrambi condividono lo stesso array.
+newObj.arr.pop();
+
+console.log(obj.arr);    // [1, 2]
+console.log(newObj.arr); // [1, 2]
+```

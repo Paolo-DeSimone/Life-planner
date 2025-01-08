@@ -1,4 +1,5 @@
 export enum UserMembers {
+    id = "id",
     name = "name",
     surname = "surname",
     age = "age",
@@ -11,6 +12,7 @@ export enum UserMembers {
 }
 
 export type UserMemberWithTypes = {
+    [UserMembers.id]?: string;
     [UserMembers.name]: string;                     
     [UserMembers.surname]: string;                  
     [UserMembers.age]: number;                      
@@ -22,20 +24,18 @@ export type UserMemberWithTypes = {
     [UserMembers.EMB]?: number; // Mai valorizzato direttamente: calculateOMBandEMB lo sovrascrive. Inserito qui solo perché ci son tutti gli altri membri.
 }
 
-
-
-/**
- * The class representing the application user. 
+/** The class represents the application user. 
  * 
- * Here his Total Monlty Income (TMI) is defined, along with his Objective Montly Budget (OMB) and his Expances Montly budget (OMB).
+ * Here his Total Montly Income (TMI) is defined, along with his Objective Montly Budget (OMB) and his Expances Montly budget (OMB).
  * OMB represents the money that the user wants to save each month for his objectives.
- * EMB represents the money that the user can spend each month.
+ * EMB represents the money that the user can spend each month on any kind of expance (holidays, clothes, clubs...).
  * 
- * The logic implemented here ensures that TMI = OMB + EMB is always a true equation and that they are never setted directly 
+ * The logic implemented here ensures that TMI = OMB + EMB is always a true equation and that OMB and EMB are never setted directly 
  * but always using calculate_TMI_OMB_EMB(), after needed checks are done.
  */
 export class User {
     constructor(private members: UserMemberWithTypes) {
+        this.members.id = crypto.randomUUID()
         this.calculate_TMI_OMB_EMB(members.TMI, members.OBMpercentage, members.EBMpercentage); 
     }    
 
@@ -63,8 +63,8 @@ export class User {
             throw new Error(`Property ${member} does not exist on UserMembers.`);
         }
 
-        if (member === UserMembers.OMB || member === UserMembers.EMB) {
-            throw new Error(`Property ${member} must not be modified directly. Update its percentage field.`);
+        if (member === UserMembers.OMB || member === UserMembers.EMB || member === UserMembers.id) {
+            throw new Error(`Property ${member} must not be modified directly.`);
         }
 
         if (member === UserMembers.TMI) {
@@ -86,7 +86,7 @@ export class User {
      * @returns {void}
      */
     private calculate_TMI_OMB_EMB(TMI: number, OBMperc: number, EMBperc: number): void {
-        this.checkPercentages(OBMperc, EMBperc, TMI);
+        this.check_TMI_OMB_EMB(OBMperc, EMBperc, TMI);
         this.members.OMB = (TMI * OBMperc) / 100;
         this.members.EMB = (TMI * EMBperc) / 100;
     }
@@ -97,7 +97,7 @@ export class User {
      * @param {number} EMBperc - EMB percentage.
      * @throws {Error} - If percentages do not sum up to 100.
      */
-    private checkPercentages(OBMperc: number, EMBperc: number, TMI?: number): void {
+    private check_TMI_OMB_EMB(OBMperc: number, EMBperc: number, TMI?: number): void {
         if (TMI as number < 0) {
             throw new Error("TMI must be at least 0. 0 means you have no montly income at the moment.");
         }
@@ -113,7 +113,7 @@ export class User {
      * @returns {void}
      */
     private updatePercentages(OBMperc: number, EMBperc: number): void {
-        this.checkPercentages(OBMperc, EMBperc);
+        this.check_TMI_OMB_EMB(OBMperc, EMBperc);
         this.members.OBMpercentage = OBMperc;
         this.members.EBMpercentage = EMBperc;
         this.calculate_TMI_OMB_EMB(this.members.TMI, OBMperc, EMBperc);
