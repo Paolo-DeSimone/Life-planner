@@ -79,7 +79,6 @@ Per interrompere questo meccanismo, si fa la stessa cosa ma col metodo Unsubscri
 Nel nostro caso: ```objectivesList: Objective[] objectivesList: Objective[]```
 
 2. Per cambiare i dati si avranno dei metodi normalissimi. 
-Nel nostro caso: ```objectivesSubject: BehaviorSubject<Objective[]>```
 
 3. Per monitorare lo stato dell'oggetto e, al suo cambiamento, far eseguire delle azioni si userà un Observable pasandogli l'oggetto che deve monitorare (dopo che è stato manipolato da un certo metodo) ed invocando il suo metodo next().
 In questo modo: ```this.objectivesSubject.next(this.objectivesList)```
