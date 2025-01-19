@@ -39,11 +39,11 @@ Come riempire o modificare questo Observable lo decido io nella logica dei vari 
 
 ```this.objectivesSubject.next(this.objectivesList)```
 
-Finora non abbiamo fatto nulla di che: solo riempito un oggetto coi valori di un altro oggetto. Ma la magia viene ora: per logiche interne che a noi non interessano, in automatico quando viene chiamato il metodo next() su un Observable come nel metodo precedente, viene chiamata un'altra funzione. Tale funzione rappresenta il modo in cui noi vogliamo che la nostra applicazione reagisca al cambiamento dei dati!
+Finora non abbiamo fatto nulla di che: solo riempito un oggetto con nuovi valori. Ma la magia viene ora: per logiche interne che a noi non interessano, in automatico quando viene chiamato il metodo next() su un Observable come nel metodo precedente, viene chiamata un'altra funzione. Tale funzione rappresenta il modo in cui noi vogliamo che la nostra applicazione reagisca al cambiamento dei dati!
 
 Ora noi abbiamo un meccanismo che permette di far fare al programma ciò che vogliamo senza doverlo comandare in modo diretto perché ci pensa l'observer, in automatico, a dare quel comando. E lo da al cambiamento dei dati che sta manipolando o "osservando".
 
-Ma dove sono contentuti i comandi da eseguire? Chi li esegue? La risposta l'observer, il quale assomiglierà a qualcosa tipo: 
+Ma dove sono contentuti i comandi da eseguire? Chi li esegue? La risposta è l'observer, il quale assomiglierà a qualcosa tipo: 
 
 ```
 const observer: Observer<Objective[]> = {
@@ -58,6 +58,49 @@ const observer: Observer<Objective[]> = {
     complete: () => console.log('Completed')
 }
 ```
-Noi stiamo qui creando una variabile chiamata observer, di tipo Observer, che manipola dati di tipo Objective[], ossia la nostra lista di obiettivi. I comdandi che l'observable fa eseguire all'observer quando viene modificato con successo sono quelli dopo "next:". Quando nella modifica sorge un errore viene fatto scattare quanto definito dopo "error:" e quando invece si vuole dire all'observer di eseguire X ma che poi non è più necessario che reagisca ai cambiamenti monitorati all'observer, si usa complete.
+Noi stiamo qui creando una variabile chiamata observer, di tipo Observer, che manipola dati di tipo Objective[], ossia la nostra lista di obiettivi. 
 
-Un esempio pratico per riassumere il tutto può essere questo: c'è una grigila con la lista degli obiettivi. L'utente aggiunge un nuovo obiettivo compilando un popup. Il programma non sa quando il nuovo obiettivo verrà creato. Ma grazie a questo meccanismo, in automatico, la griglia verrà riempita. La griglia è un Observer, che osserva il cambiamento della lista degli obiettivi tramite un Observable (che non è visibile all'utente, è interno al programma)
+I comdandi che l'observable fa eseguire all'observer quando viene modificato con successo sono quelli dopo "next:". Quando nella modifica sorge un errore viene fatto scattare quanto definito dopo "error:" e quando invece si vuole dire all'observer di eseguire X ma che poi non è più necessario che reagisca ai cambiamenti monitorati all'observer, si usa complete.
+
+Per attivare tutto questo meccanismo, è necessario usare il metodo subscribe():
+
+```
+SubscribeObserver(observer: Observer<Objective[]>) {
+    this.objectivesSubject.subscribe(observer);
+}
+```
+In questo modo, nel momento in cui l'Observer chiemerà il metodo next(), tutti gli Observer che risulteranno "iscritti" a quel dato Observer faranno scattare il loro metodo next().
+
+Per interrompere questo meccanismo, si fa la stessa cosa ma col metodo Unsubscribe().
+
+###Riassunto ed esempio pratico
+
+1. Abbiamo un oggetto di cui vogliamo monitorare i cambiamenti di valore e, al loro cambiamento, vogliamo che in automatico vengano svolte delle azioni. 
+Nel nostro caso: ```objectivesList: Objective[] objectivesList: Objective[]```
+
+2. Per cambiare i dati si avranno dei metodi normalissimi. 
+Nel nostro caso: ```objectivesSubject: BehaviorSubject<Objective[]>```
+
+3. Per monitorare lo stato dell'oggetto e, al suo cambiamento, far eseguire delle azioni si userà un Observable pasandogli l'oggetto che deve monitorare (dopo che è stato manipolato da un certo metodo) ed invocando il suo metodo next().
+In questo modo: ```this.objectivesSubject.next(this.objectivesList)```
+
+4. Per eseguire le azioni che vogliamo, si useranno tutti quegli Observer che, al comando scritto nella riga sopra, risulteranno subscribed() all'observable. Per interrompere il meccanismo, si userà unsubscribe(). Le azioni eseguite, saranno quelle dopo il comando "next:". Nel nostro esempio, il valore passato dall'Observer viene preso semplicemente stampato a console.
+
+In questo modo:
+```
+const subscription = observable.subscribe({
+  next: (value) => console.log(value),
+  complete: () => console.log('Observable completed'),
+});
+
+setTimeout(() => subscription.unsubscribe(), 5000);
+```
+
+Un esempio pratico di utilizzo può essere questo: 
+
+- C'è una grigila con la lista degli obiettivi. 
+- L'utente aggiunge un nuovo obiettivo compilando un popup.
+- La griglia verrà riempita in automatico. 
+
+L'Observer osserva i cambiamenti dell'oggetto che contiene la lista degli obiettivi. 
+Quando essa cambia dopo la compilazione del popup, per il quale ci sarà un determinato metodo, viene avvisato un Observer che si occuperò di aggiornare la griglia, mostrando anche il nuovo obiettivo.

@@ -31,3 +31,8 @@ dist/
 
 # Esclude file di log
 *.log
+
+*.md
+v3.vite-project/src/vite-env.d.ts
+v3.vite-project/src/vite-env.d.ts
+v3.vite-project/src/vite-env.d.ts

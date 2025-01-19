@@ -1,7 +1,7 @@
-import { User, UserMembers } from "./models/User";
-import { Objective, ObjEnum, ObjMembers } from "./models/Objective";
-import { ObjectiveService } from "./services/ObjectiveServ";
-import { Observer } from "rxjs";
+// import { User, UserMembers } from "./models/User";
+// import { Objective, ObjEnum, ObjMembers } from "./models/Objective";
+// import { ObjectiveService } from "./services/ObjectiveServ";
+// import { Observer } from "rxjs";
 
 /** Test per classe User, passati il 04.01. Scommentare questa riga e la sua chisura per ri-eseguirli,
 
@@ -62,8 +62,7 @@ console.log("EBMpercentage:", user2.Getter(UserMembers.EBMpercentage));
 
  */
 
-
-
+/* Test per classe Objective ed Observabe
 const Paolo = new User({
     name: 'Paolo',
     surname: 'De Simone',
@@ -132,3 +131,8 @@ console.log("MAIN: Fine chiamata fakeDBcallWithPromises1 (Non ha aspettato la Pr
 
     console.log("MAIN: Fine chiamata fakeDBcallWithPromises2 (Ha aspettato la Promise)");
 })();
+
+*/
+
+
+console.log("ciao")
