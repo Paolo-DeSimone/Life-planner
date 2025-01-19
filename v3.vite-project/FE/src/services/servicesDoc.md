@@ -73,7 +73,7 @@ In questo modo, nel momento in cui l'Observer chiemerà il metodo next(), tutti 
 
 Per interrompere questo meccanismo, si fa la stessa cosa ma col metodo Unsubscribe().
 
-###Riassunto ed esempio pratico
+### Riassunto ed esempio pratico
 
 1. Abbiamo un oggetto di cui vogliamo monitorare i cambiamenti di valore e, al loro cambiamento, vogliamo che in automatico vengano svolte delle azioni. 
 Nel nostro caso: ```objectivesList: Objective[] objectivesList: Objective[]```
