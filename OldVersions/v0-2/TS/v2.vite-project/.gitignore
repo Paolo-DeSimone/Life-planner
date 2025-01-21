@@ -33,6 +33,6 @@ dist/
 *.log
 
 *.md
-v3.vite-project/src/vite-env.d.ts
-v3.vite-project/src/vite-env.d.ts
-v3.vite-project/src/vite-env.d.ts
+life-planner-fe/src/vite-env.d.ts
+life-planner-fe/src/vite-env.d.ts
+life-planner-fe/src/vite-env.d.ts

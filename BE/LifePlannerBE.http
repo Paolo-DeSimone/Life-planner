@@ -1,0 +1,6 @@
+@LifePlannerBE_HostAddress = http://localhost:5062
+
+GET {{LifePlannerBE_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

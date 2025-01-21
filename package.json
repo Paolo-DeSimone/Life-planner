@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "start-all": "concurrently --raw \"npm --prefix ./FE run dev\" \"dotnet run --project ./BE/LifePlannerBE.csproj\""
+  }
+}
