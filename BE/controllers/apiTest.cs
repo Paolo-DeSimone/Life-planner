@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 public class HomeController : ControllerBase
 {
-    [HttpGet]
-    [Route("get")]
-
+    [HttpGet("getall")] 
     public IActionResult Get()
     {
         return Ok("LifePlanner API is running!");
