@@ -4,7 +4,7 @@ import { BehaviorSubject, Observer } from "rxjs"; // Observable,
 
 @ClassLogger
 @LoggerWithParameters("Ciao sono il logger che richiede un parametro")
-/**
+/** ObjectiveService
  * ObjectiveService gestisce la logica per la gestione degli obiettivi degli utenti.
  *
  * Un Subject è un Observable ed un Observer contemporaneamente.

@@ -1,44 +1,43 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Aggiungi supporto per HTTPS
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = 5001;  // Puoi scegliere una porta diversa se necessario
+});
+
+// Aggiungi i controller
+builder.Services.AddControllers();
 
 var app = builder.Build();
+app.UseStaticFiles(); // Abilita l'uso di file statici dentro wwwroot
 
-// Configure the HTTP request pipeline.
+// Usa HTTPS se in ambiente di sviluppo o produzione
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();  // Abilitato solo in produzione
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection();  // Redirige le richieste HTTP verso HTTPS
+app.UseStaticFiles();
+app.UseRouting();
 
-var summaries = new[]
+app.UseEndpoints(endpoints =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    endpoints.MapControllers();
+    app.MapGet("/", () => "Welcome to LifePlanner API!");
+});
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+
+// Mappa i controller
+app.MapControllers();
+
+Console.WriteLine($"Ambiente di esecuzione BE: {app.Environment.EnvironmentName}");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
