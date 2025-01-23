@@ -1,0 +1,8 @@
+{
+"scripts": {
+  "start-all": "concurrently --raw \"npm --prefix ./LifePlannerFE run start\" \"dotnet run --project ./LifePlannerBE/LifePlannerBE.csproj\""
+},
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
+}

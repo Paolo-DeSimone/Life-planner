@@ -1,5 +1,8 @@
 {
   "scripts": {
-    "start-all": "concurrently --raw \"npm --prefix ./FE run dev\" \"dotnet run --project ./BE/LifePlannerBE.csproj\""
+    "start-all": "concurrently --raw \"npm --prefix ./FE npm run ng serve\" \"dotnet run --project ./BE/LifePlannerBE.csproj\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0"
   }
 }
