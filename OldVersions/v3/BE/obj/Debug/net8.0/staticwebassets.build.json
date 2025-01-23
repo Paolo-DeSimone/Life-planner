@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "tNlCKqAmycfmLAiI+njMwnS9VKq509c/XKn/c66SfCs=",
+  "Source": "LifePlannerBE",
+  "BasePath": "_content/LifePlannerBE",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "LifePlannerBE\\wwwroot",
+      "Source": "LifePlannerBE",
+      "ContentRoot": "C:\\Users\\Paolo\\Desktop\\Coding\\MainProjects\\Life-planner\\OldVersions\\v3\\BE\\wwwroot\\",
+      "BasePath": "_content/LifePlannerBE",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Paolo\\Desktop\\Coding\\MainProjects\\Life-planner\\OldVersions\\v3\\BE\\wwwroot\\style.css",
+      "SourceId": "LifePlannerBE",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Paolo\\Desktop\\Coding\\MainProjects\\Life-planner\\OldVersions\\v3\\BE\\wwwroot\\",
+      "BasePath": "_content/LifePlannerBE",
+      "RelativePath": "style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\style.css"
+    }
+  ]
+}
