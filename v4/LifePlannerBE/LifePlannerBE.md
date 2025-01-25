@@ -209,18 +209,24 @@ Esempio di configurazione della DI in Program.cs:
 
 `
 public class Startup
+
 {
+
     public void ConfigureServices(IServiceCollection services)
     {
+
         // Registrazione di un servizio nel container di DI
         services.AddScoped<IUserService, UserService>();
+
     }
+
 }
 `
 
 In questo caso, il servizio UserService viene registrato per essere utilizzato ogni volta che un controller o altro componente richiede un'istanza di IUserService
 
 `
+
 using Microsoft.AspNetCore.Mvc;
 
 public class UserController : ControllerBase
@@ -240,6 +246,7 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 }
+
 `
 
 In questo esempio, IUserService è iniettato nel costruttore del controller. ASP.NET Core gestisce l'istanza di IUserService e la fornisce automaticamente al controller, gestendone anche la distruzione.
