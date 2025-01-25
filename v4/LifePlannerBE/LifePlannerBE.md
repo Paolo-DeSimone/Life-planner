@@ -10,6 +10,7 @@ Il sistema in questione è chiamato "progetto web api"
 
 La struttura dei file predefinita è questa:
 
+`
 LifePlannerBE/
 ├── Controllers/
 │   ├── UserController.cs
@@ -21,6 +22,7 @@ LifePlannerBE/
 ├── appsettings.json
 ├── appsettings.Development.json
 ├── LifePlannerBE.csproj
+`
 
 Maggiori dettagli su ogni file sotto.
 
