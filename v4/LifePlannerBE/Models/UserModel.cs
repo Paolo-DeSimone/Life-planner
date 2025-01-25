@@ -7,5 +7,6 @@ namespace Models{
         {
             return "LifePlanner API is running!";
         }
+    }
 }
 
