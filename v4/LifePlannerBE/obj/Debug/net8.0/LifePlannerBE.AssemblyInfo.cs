@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LifePlannerBE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0bd57867fe5c63d36d206d5ca01b1f857a6c9fe9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cb482c52b5b704c09acb83970d6e512f4581c59b")]
 [assembly: System.Reflection.AssemblyProductAttribute("LifePlannerBE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LifePlannerBE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

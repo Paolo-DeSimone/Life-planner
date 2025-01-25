@@ -30,3 +30,6 @@ FE/dist
 # .NET/BE
 BE/bin/
 BE/obj/
+BE/**/*.AssemblyInfo.cs
+BE/**/*.AssemblyInfoInputs.cache
+BE/**/*.GeneratedCode.*
