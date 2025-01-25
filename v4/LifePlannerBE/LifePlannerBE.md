@@ -12,15 +12,25 @@ La struttura dei file predefinita è questa:
 
 `
 LifePlannerBE/
+
 ├── Controllers/
+
 │   ├── UserController.cs
+
 ├── Models/
+
 │   ├── UserModel.cs
+
 ├── Services/ (Opzionali)
+
 │   ├── UserService.cs
+
 ├── Program.cs
+
 ├── appsettings.json
+
 ├── appsettings.Development.json
+
 ├── LifePlannerBE.csproj
 `
 
