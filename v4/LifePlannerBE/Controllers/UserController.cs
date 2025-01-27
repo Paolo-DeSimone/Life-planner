@@ -3,11 +3,11 @@ using Models;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController : UserModel
+public class UserController : BaseController<User>
 {
-    [HttpGet("getall")] 
-    public IActionResult Get()
+    public UserController(IService<User> userService) : base(userService)
     {
-        return Ok("LifePlanner API is running!");
     }
+
+    // Puoi sovrascrivere metodi se necessario.
 }

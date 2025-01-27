@@ -262,6 +262,93 @@ Ogni injection può avere un tipo di ciclo di vita differente a seconda dei casi
 - Singleton: Una sola istanza per l'intera durata dell'applicazione. 
 `services.AddSingleton<IConfigService, ConfigService>();`
 
+## Definizione, vantaggi e svantaggi delle interfaccie.
+
+*Definizione tecnica:*
+
+L'interfaccia è come una classe, nel senso che ha membri e proprietà, ma a loro differenza NON contiene alcuna inizializzazione delle proprietà od implementazione dei metodi.
+
+Le classi che implementano (non si dice "ereditano") una interfaccia devono inizializzare/implementare TUTTE le loro proprietà/metodi.
+
+Una classe può implementare più interfaccie ma ereditare solo da 1 classe.
+
+*Definizione logica:*
+
+Una interfaccia rappresenta una astrazione tra N oggetti. 
+
+Astrarre significa eliminare le specificità degli oggetti e raggrupparli insieme in un modo che abbia logicamente senso, ossia trovando cosa hanno in comune. Un esempio sotto.
+
+*Vantaggi e svantaggi*
+
+Per capirne l'utilità, facciamo un esempio e poi vediamo la differenza senza interfaccia, chiarendo infine quando non servono.
+
+Definiamo la nostra interfaccia.
+
+`
+interface IDatabase {
+  connect(): void;
+  disconnect(): void;
+}
+`
+Creiamo due classi che implementano l'interfaccia, una per MySQL e una per MongoDB.
+
+`
+class MySQLDatabase implements IDatabase {
+  connect(): void {
+    console.log("Connesso a MySQL");
+  }
+
+  disconnect(): void {
+    console.log("Disconnesso da MySQL");
+  }
+}
+
+class MongoDBDatabase implements IDatabase {
+  connect(): void {
+    console.log("Connesso a MongoDB");
+  }
+
+  disconnect(): void {
+    console.log("Disconnesso da MongoDB");
+  }
+}
+
+Ora abbiano necessità di usare un service che ci connette di fatto al database
+
+`
+class DatabaseService {
+  private database: IDatabase;
+
+  constructor(database: IDatabase) {
+    this.database = database;
+  }
+
+  initialize(): void {
+    this.database.connect();
+    console.log("Logica di inizializzazione...");
+    this.database.disconnect();
+  }
+}
+
+const mysqlDB = new MySQLDatabase();
+const mongoDB = new MongoDBDatabase();
+
+const service1 = new DatabaseService(mysqlDB);
+const service2 = new DatabaseService(mongoDB);
+`
+
+Vantaggi:
+
+- Flessibilità: posso usare il service con qualunque database.
+- Mantenibilità: il service e le classi NON sono interdipendenti. Quindi se domani uno dei due viene modificato, non dobbiamo aggiornare l'altro in quanto il service funziona riferendosi all'interfaccia. Il grado di NON dipendenza tra un oggetto ed un altro è detto "decoupling" ossia "disaccoppiare". Il contrario si dice "coupling.
+- Unit testing: dicono che sia più facile da fare con le interfaccie. Ma non ho approfondito e non ne so niente, al momento.
+
+Svantaggi:
+- Lavoro extra: bisogna crearle.
+- Complessità extra: può essere meno immediato capire cosa sta succedendo nel codice.
+
+Per ciò creare interfaccie va bene ed è consigliato, quando c'è un motivo concreto per farlo. Se no si "over ingegnerizza" per niente.
+
 ## Altre convenzioni, chiarimenti e standard definiti da Microsoft
 
 ### Uso dei DTO (Data Transfer Object)
