@@ -3,8 +3,8 @@ using ApplicationBlocks.DTOs;
 using ApplicationBlocks.Models;
 
 namespace ApplicationBlocks.Services;
-public interface IUserService
+public interface UserServiceIn
 {
-    Task<UserResponseDTO> GetUserByIdAsync(int id);
-    Task<User> RegisterUserAsync(UserRegisterDTO userDto);
+    Task<UserDTO> GetUserByIdAsync(int id);
+    Task<User> RegisterUserAsync(UserDTO userDto);
 }

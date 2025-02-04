@@ -20,7 +20,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<UserResponseDTO>> GetUser(int id)
+    public async Task<ActionResult<UserDTO>> GetUser(int id)
     {
         var userDto = await _userService.GetUserByIdAsync(id);
         if (userDto == null) return NotFound();
@@ -28,10 +28,10 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<UserResponseDTO>> Register(UserRegisterDTO userDto)
+    public async Task<ActionResult<UserDTO>> Register(UserDTO userDto)
     {
         var user = await _userService.RegisterUserAsync(userDto);
-        var userResponse = _mapper.Map<UserResponseDTO>(user);
+        var userResponse = _mapper.Map<UserDTO>(user);
         return Ok(userResponse);
     }
 }

@@ -8,10 +8,9 @@ namespace ApplicationBlocks
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDTOBase>();
-            CreateMap<User, UserResponseDTO>();
-            CreateMap<UserRegisterDTO, User>();
-            CreateMap<UserLoginDTO, User>();
+            CreateMap<User, UserDTO>(); // User to UserDTO. Ha tutti i campi di User.
+            CreateMap<UserDTO, User>();
+
         }
     }
 }

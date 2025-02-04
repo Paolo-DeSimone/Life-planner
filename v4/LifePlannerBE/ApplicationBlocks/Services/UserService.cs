@@ -2,26 +2,27 @@ using AutoMapper;
 using ApplicationBlocks.Models;
 using ApplicationBlocks.DTOs;
 using ApplicationBlocks.Repositories;
+using ApplicationBlocks.Services;
 
 namespace ApplicationBlocks.Services;
-public class UserService
+public class UserService : UserServiceIn
 {
-    private readonly IUserRepository _userRepository;
+    private readonly UserRepositoryIn _userRepository;
     private readonly IMapper _mapper;
 
-    public UserService(IUserRepository userRepository, IMapper mapper)
+    public UserService(UserRepositoryIn userRepository, IMapper mapper)
     {
         _userRepository = userRepository;
         _mapper = mapper;
     }
 
-    public async Task<UserResponseDTO> GetUserByIdAsync(int id)
+    public async Task<UserDTO> GetUserByIdAsync(int id)
     {
         var user = await _userRepository.GetByIdAsync(id);
-        return _mapper.Map<UserResponseDTO>(user);
+        return _mapper.Map<UserDTO>(user);
     }
 
-    public async Task<User> RegisterUserAsync(UserRegisterDTO userDto)
+    public async Task<User> RegisterUserAsync(UserDTO userDto)
     {
         var user = _mapper.Map<User>(userDto);
         user.Password = HashPassword(user.Password != null ? user.Password : "defaultPassword"); // Hash della password
