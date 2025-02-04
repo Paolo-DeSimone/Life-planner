@@ -5,6 +5,6 @@ using ApplicationBlocks.Models;
 namespace ApplicationBlocks.Services;
 public interface UserServiceIn
 {
-    Task<UserDTO> GetUserByIdAsync(int id);
-    Task<User> RegisterUserAsync(UserDTO userDto);
+    Task<UserDTO> LoginInUser(string username,string password);
+    Task<User> RegisterUser(UserDTO userDto);
 }

@@ -16,22 +16,17 @@ public class UserService : UserServiceIn
         _mapper = mapper;
     }
 
-    public async Task<UserDTO> GetUserByIdAsync(int id)
+    public async Task<UserDTO> LoginInUser(string username,string password)
     {
-        var user = await _userRepository.GetByIdAsync(id);
+        var user = await _userRepository.LoginInUser(username, password);
         return _mapper.Map<UserDTO>(user);
     }
 
-    public async Task<User> RegisterUserAsync(UserDTO userDto)
+    public async Task<User> RegisterUser(UserDTO userDto)
     {
         var user = _mapper.Map<User>(userDto);
-        user.Password = HashPassword(user.Password != null ? user.Password : "defaultPassword"); // Hash della password
-        await _userRepository.AddAsync(user);
+        user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password != null ? user.Password : null); // Hash della password
+        await _userRepository.RegisterUser(user);
         return user;
-    }
-
-    private string HashPassword(string password)
-    {
-        return BCrypt.Net.BCrypt.HashPassword(password); // Usa bcrypt per la sicurezza
     }
 }

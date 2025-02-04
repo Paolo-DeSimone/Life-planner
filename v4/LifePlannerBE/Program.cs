@@ -1,21 +1,26 @@
-using ApplicationBlocks.Services; 
-using ApplicationBlocks.Repositories;
-using Microsoft.EntityFrameworkCore;
 using ApplicationBlocks;
+using ApplicationBlocks.Repositories;
+using ApplicationBlocks.DependenciesRegistraion;
+
+
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+// asp.net core services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+// my services
+builder.Services.AddApplicationServices();  
+builder.Services.AddApplicationRepositories(); // forse è inefficiente perché non è scoped 
+
+// AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly); // forse è inefficiente perché non è scoped
-builder.Services.AddScoped<UserRepositoryIn, UserRepository>();
-builder.Services.AddScoped<UserService>();
 
-
-
-//SQL Server connection.  AddDbContext regitra il servizio come scoped in automatico
+// SQL Server connection. AddDbContext regitra il servizio come scoped in automatico
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
