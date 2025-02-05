@@ -13,9 +13,9 @@ public class UserRepository : UserRepositoryIn
         _context = context;
     }
 
-    public async Task<User> LoginInUser(string username, string password)
+    public async Task<User> LoginInUser(string email, string password)
     {
-        var user = await _context.User.FirstOrDefaultAsync(u => u.Email == username);
+        var user = await _context.User.FirstOrDefaultAsync(u => u.Email == email);
         if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
         {
             throw new KeyNotFoundException("User not found.");

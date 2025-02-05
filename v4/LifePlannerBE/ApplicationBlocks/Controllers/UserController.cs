@@ -19,14 +19,6 @@ public class UserController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet("get/{username}/{password}")]
-    public async Task<ActionResult<UserDTO>> LoginInUser(string username, string password)
-    {
-        var userDto = await _userService.LoginInUser(username, password);
-        if (userDto == null) return NotFound();
-        return Ok(userDto);
-    }
-
     [HttpPost("create")]
     public async Task<ActionResult<UserDTO>> RegisterUser(UserDTO userDto)
     {
@@ -34,5 +26,12 @@ public class UserController : ControllerBase
         var userResponse = _mapper.Map<UserDTO>(user);
         return Ok(userResponse);
     }
-
+    
+    [HttpGet("get/{email}/{password}")]
+    public async Task<ActionResult<UserDTO>> LoginInUser(string email, string password)
+    {
+        var userDto = await _userService.LoginInUser(email, password);
+        if (userDto == null) return NotFound();
+        return Ok(userDto);
+    }
 }

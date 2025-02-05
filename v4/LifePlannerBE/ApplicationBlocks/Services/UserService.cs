@@ -16,9 +16,9 @@ public class UserService : UserServiceIn
         _mapper = mapper;
     }
 
-    public async Task<UserDTO> LoginInUser(string username,string password)
+    public async Task<UserDTO> LoginInUser(string email,string password)
     {
-        var user = await _userRepository.LoginInUser(username, password);
+        var user = await _userRepository.LoginInUser(email, password);
         return _mapper.Map<UserDTO>(user);
     }
 
