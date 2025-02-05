@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'loginSelector',
-  templateUrl: './login.html',
-  styleUrls: ['./login.css'],
-  imports: [BrowserModule, FormsModule]
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  imports: [FormsModule],
+
 })
 export class Login {
   title = 'Login';
