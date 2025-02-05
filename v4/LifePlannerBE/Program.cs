@@ -24,6 +24,12 @@ builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly); // forse è ine
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5088); // Porta HTTP
+    options.ListenAnyIP(7211, listenOptions => listenOptions.UseHttps());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +38,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapGet("/", () => "Le API di Life Planner funzionano! Aggiungi '/swagger' alla URL per testarle!.");
+
 
 app.UseHttpsRedirection();
 app.MapControllers();
