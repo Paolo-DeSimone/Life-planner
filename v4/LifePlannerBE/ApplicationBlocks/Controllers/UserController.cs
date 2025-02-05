@@ -10,10 +10,10 @@ namespace ApplicationBlocks.Controllers;
 [Route("api/users")]
 public class UserController : ControllerBase
 {
-    private readonly UserService _userService;
+    private readonly UserServiceIn _userService;
     private readonly IMapper _mapper;
 
-    public UserController(UserService userService, IMapper mapper)
+    public UserController(UserServiceIn userService, IMapper mapper)
     {
         _userService = userService;
         _mapper = mapper;
@@ -34,4 +34,5 @@ public class UserController : ControllerBase
         var userResponse = _mapper.Map<UserDTO>(user);
         return Ok(userResponse);
     }
+
 }

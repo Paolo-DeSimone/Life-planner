@@ -22,11 +22,11 @@ public class UserService : UserServiceIn
         return _mapper.Map<UserDTO>(user);
     }
 
-    public async Task<User> RegisterUser(UserDTO userDto)
+    public async Task<UserDTO> RegisterUser(UserDTO userDto)
     {
         var user = _mapper.Map<User>(userDto);
         user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password != null ? user.Password : null); // Hash della password
         await _userRepository.RegisterUser(user);
-        return user;
+        return _mapper.Map<UserDTO>(user);
     }
 }

@@ -8,7 +8,7 @@ public static class DependenciesRegistraion
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection Dep)
     {
-        Dep.AddScoped<UserService>();
+        Dep.AddScoped<UserServiceIn,UserService>();
         // Altri servizi...
         return Dep;
     }
