@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Login } from './login/login.component';
+import { RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { routes } from './app.routes';
+
 
 @Component({
   selector: 'app-root',
-  // Rimuovi questa riga
-  // imports: [Login],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [Login]
+  imports: [RouterModule],
+  template: `<router-outlet></router-outlet>`
+  
 })
 export class AppComponent {
   title = 'LifePlannerFE';

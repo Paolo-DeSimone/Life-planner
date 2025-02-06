@@ -1,22 +1,28 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-
+import { Router } from '@angular/router';
+import { UserController } from '../Controllers/UserController'; // Ensure the path is correct
+import { NgModel, FormsModule} from '@angular/forms';
 @Component({
-  selector: 'loginSelector',
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [FormsModule],
-
+  imports: [FormsModule]
 })
-export class Login {
-  title = 'Login';
+export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  login() {
-    console.log('Login');
+  constructor(private userController: UserController, private router: Router) {}
+
+  async login() {
+    const user = await this.userController.LoginInUser(this.email, this.password);
+    
+    if (user) {
+      this.router.navigate(['/HomePage']);
+      alert("Login effettuato con successo!");
+    } else {
+      alert("Credenziali errate o utente non trovato!");
+    }
   }
+  
 }

@@ -20,7 +20,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("create")]
-    public async Task<ActionResult<UserDTO>> RegisterUser(UserDTO userDto)
+    public async Task<ActionResult<UserDTO>>RegisterUser(UserDTO userDto)
     {
         var user = await _userService.RegisterUser(userDto);
         var userResponse = _mapper.Map<UserDTO>(user);
