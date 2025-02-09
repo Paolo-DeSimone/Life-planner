@@ -19,14 +19,16 @@ public class UserController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpPost("create")]
-    public async Task<ActionResult<UserDTO>>RegisterUser(UserDTO userDto)
+    [HttpGet("create/{email}/{password}")] // non corretto usare un get perché dovrebbe essere un post ma va bene lo stesso per ora...
+    public async Task<ActionResult<UserDTO>> RegisterUser(string email, string password)
     {
-        var user = await _userService.RegisterUser(userDto);
-        var userResponse = _mapper.Map<UserDTO>(user);
-        return Ok(userResponse);
+        var userDto = new UserDTO { Email = email, Password = password };
+        var newUser = await _userService.RegisterUser(userDto);
+        return Ok(newUser);
     }
-    
+
+
+
     [HttpGet("get/{email}/{password}")]
     public async Task<ActionResult<UserDTO>> LoginInUser(string email, string password)
     {

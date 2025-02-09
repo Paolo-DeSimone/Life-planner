@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
 using ApplicationBlocks.Models;
+using ApplicationBlocks.DTOs;
+
 using ApplicationBlocks.Repositories;
 
 namespace ApplicationBlocks.Repositories;

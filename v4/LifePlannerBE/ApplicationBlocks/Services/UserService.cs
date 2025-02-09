@@ -16,7 +16,7 @@ public class UserService : UserServiceIn
         _mapper = mapper;
     }
 
-    public async Task<UserDTO> LoginInUser(string email,string password)
+    public async Task<UserDTO> LoginInUser(string email, string password)
     {
         var user = await _userRepository.LoginInUser(email, password);
         return _mapper.Map<UserDTO>(user);
@@ -24,9 +24,9 @@ public class UserService : UserServiceIn
 
     public async Task<UserDTO> RegisterUser(UserDTO userDto)
     {
+        userDto.Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password); // Hash della password
         var user = _mapper.Map<User>(userDto);
-        user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password != null ? user.Password : null); // Hash della password
         await _userRepository.RegisterUser(user);
-        return _mapper.Map<UserDTO>(user);
+        return userDto;
     }
 }
