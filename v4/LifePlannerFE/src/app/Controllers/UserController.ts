@@ -8,8 +8,8 @@ export class UserController {
 
   public async RegisterUser(email: string, password: string)
   {
-    const data = await fetch(`${this.url}`);
-    return (await data.json()) ?? {};       
+    const response = await fetch(`${this.url}/api/users/create/${email}/${password}`);
+    return (await response.json()) ?? {};       
   }
   
   public async LoginInUser(email: string, password: string) {
