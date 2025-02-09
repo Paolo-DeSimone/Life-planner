@@ -8,9 +8,7 @@ import { routes } from './app.routes';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterModule],
-  template: `<router-outlet></router-outlet>`
-  
+  imports: [RouterModule]  
 })
 export class AppComponent {
   title = 'LifePlannerFE';
