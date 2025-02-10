@@ -1,0 +1,10 @@
+<h2>{{ data.name }}</h2>
+<p><strong>Inizio:</strong> {{ data.startDate | date:'fullDate' }}</p>
+<p><strong>Fine:</strong> {{ data.endDate | date:'fullDate' }}</p>
+<p *ngIf="data.generalData?.['description']">
+  <strong>Descrizione:</strong> {{ data.generalData?.['description'] }}
+</p>
+<p *ngIf="data.completed !== undefined">
+  <strong>Completato:</strong> {{ data.completed ? 'Sì' : 'No' }}
+</p>
+<button mat-button (click)="close()">Chiudi</button>

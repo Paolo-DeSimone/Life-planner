@@ -1,0 +1,16 @@
+<div class="slider-container">
+    <div class="slider">
+      <div 
+        class="card" 
+        *ngFor="let objective of ObjectiveList" 
+        (click)="openPopup(objective)">
+        <h3>{{ objective.name }}</h3>
+        <p>
+          {{ objective.startDate | date:'shortDate' }} - 
+          {{ objective.endDate | date:'shortDate' }}
+        </p>
+        <!-- Puoi aggiungere ulteriori informazioni sintetiche se necessario -->
+      </div>
+    </div>
+  </div>
+  
