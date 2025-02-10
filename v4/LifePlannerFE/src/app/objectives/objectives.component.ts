@@ -7,7 +7,7 @@ import { ObjectiveDetailDialogComponent } from '../objective-detail-dialog/objec
 @Component({
   selector: 'app-objectives',
   standalone: true,
-  imports: [CommonModule, FormsModule], // ✅ Dichiarato FormsModule per evitare errori con ngModel
+  imports: [CommonModule, FormsModule],
   templateUrl: './objectives.component.html',
   styleUrls: ['./objectives.component.css'],
 })
@@ -117,7 +117,6 @@ export class ObjectivesComponent {
 
   openPopup(objective: ObjMembers, event: Event) {
     if (this.selectedObjectives[objective.id!]) return; // ✅ Se la checkbox è selezionata, non aprire il popup
-
     this.dialog.open(ObjectiveDetailDialogComponent, {
       data: objective,
       width: '400px',
