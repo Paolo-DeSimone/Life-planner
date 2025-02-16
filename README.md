@@ -40,7 +40,7 @@ OMBsaved = la somma di soldi che di fatto viene risparmiata per un singolo obiet
 
 OMBtarget = La somma da raggiungere per dichiarare raggiunto l’obiettivo.
 
-Emergency fund = fondo di emergenza. Un saldo che può esser positivo se l'utente ha un credito o negativo se ha un debito. Qui ci vanno tutti i soldi che non son tracciati e che quindi escono dalla logica TMI OMB + EMB. Esempi: soldi ricevuti in regalo od un intervento medico inaspettato.
+Emergency fund = fondo di emergenza. Un saldo che può esser positivo se l'utente ha un credito o negativo se ha un debito. Qui ci vanno tutti i soldi che non son tracciati e che quindi escono dalla logica TMI = OMB + EMB. Esempi: soldi ricevuti in regalo od un intervento medico inaspettato.
 
 # Perché è nato
 
