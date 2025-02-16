@@ -1,37 +1,46 @@
-# Descrizione progetto ed obiettivi
+# Descrizione progetto
 
-Il life planner è un progetto nato per la necessità di monitorare i miei obiettivi di vita (comprare casa, migliorare fisicamente...) gestendo il normale ciclo di vita di un obiettivo, ma anche eventuali imprevisti.
+LifePlanner è un programma in cui si definiscono obiettivi, tipo comprare casa, e se ne monitora il raggiungimento, rispondendo a domande come:
 
-Un dato obiettivo sarà raggiunto cercando di manipolare e gestire i 3 aspetti che accomunano un qualsiasi obiettivo: 
+- Quanti soldi destino ai miei obiettivi? 
+- Cosa succede se non posso più risparmiare quanto preventivato? 
+- Come influisce sulla mia pianificazione un eventuale perdita o guadagno di denaro improvvisa?
 
-- il cosa: "Voglio comprare casa"
-- il quando: "Nel 2030"
-- il come: "E per farlo mi serve risparmiare X euro al mese per N anni"
+Viene inoltre monitorato il come spendiamo i soldi extra, ossia quelli non destinati al risparmio/investimento per raggiungere gli obiettivi di medio-lungo periodo.  
 
-In particolare, questa ultima variabile, "il come", sarà oggetto di manipolazione all'interno del programma. 
+Questo allo scopo di miglioramento personale: esser consapevoli e padroni delle proprie spese, è una abitudine sana.  
 
-La logica per gestire "il come", in parole povere, è questa: 
+Infine verranno prodotti report per aiutare nel monitoraggio e nell'autoanalisi.
 
-TMI = OMB + EMB
+Una versione dettagliata ma abbastanza sintetica della logica del programma è contenuta nella foto nella cartella "Life-planner" della repository. Di seguito un vocabolario per interpretare i termini usati nei diagrammi.
 
-- TMI = Total Montly Income: "guadagno 1000 euro al mese"
-- OMB = Objectives Monlty Budget: "del TMI destino il 70% al risparmio al fine di realizzare i miei obiettivi"
-- EMB = Expances Monlty Budget: "I soldi che restano DOPO aver definito l'OMB, posso spenderli come voglio"
+# Vocabolario
 
-Non è complicata come logica, ma ci son alcune cose da gestire:
+Vocabolario. 
 
-- Come pianifico degli obiettivi se, quando inizio ad usare il life planner, NON ho un lavoro?
-- Nel momento in cui lo trovo, come gestisco le differenze tra ciò che ho stimato in termini di TMI ed il reale incasso che ora ho?
-- Come gestisco i miei obiettivi se all'improvviso perdo il lavoro e quindi non ho più un TMI?
-- Come gestisco incassi e spese extra inaspettati? ES: Regalo di Natale o intervento dal dentista.
+TMI = Total Montly Income = I soldi che guadagni o prevedi di guadagnare in 1 mese. Es: stipendio. 
 
-Inoltre, visto che il life planner serve anche come strumento per migliorarsi, verrà monitorato anche l'EMB. In quanto se è vero che "siamo a posto" una volta assicurato un OMB, è anche vero che è importante monitorare le proprie abitudini di spesa. 
+OMB = Objective Montly Budget = La parte del TMI destinata al raggiungimento degli obiettivi. 
 
-Ad esempio potrebbe non essere sano spendere tutti i propri soldi in vestiti o videogiochi.
+EMB = Expances Montly Budget = La parte del TMI destinata alle spese mensili. 
 
-Monitorando le proprie spese, si ha modo di conoscere meglio se stessi e vedere se si vuol cambiar qualcosa o no.
+OBJs = Objectives, gli obiettivi che ci fissiamo. 
 
-Infine, sia per gli obiettivi che per le spese, dovranno essere forniti una serie di report per aiutarci nel monitoraggio e nell'autoanalisi.
+OBJexp = OBJ expiry ossia quando si prevede di raggiungere l’obiettivo. 
+
+XXXperc = si riferisce alla percentuale di uno dei vocaboli elencati.  
+
+XXXtot = si riferisce al totale in termini assoluti di uno dei vocaboli elencati. 
+
+OMBass = OMB assegnato. Cioè la quota parte dell’OMBtot che è assegnata ad un obiettivo. 
+
+OMBleft = OMB left cioè rimanente. Cioè l’OMBtot - tutti gli OMBass. 
+
+OMBsaved = la somma di soldi che di fatto viene risparmiata per un singolo obiettivo. 
+
+OMBtarget = La somma da raggiungere per dichiarare raggiunto l’obiettivo.
+
+Emergency fund = fondo di emergenza. Un saldo che può esser positivo se l'utente ha un credito o negativo se ha un debito. Qui ci vanno tutti i soldi che non son tracciati e che quindi escono dalla logica TMI OMB + EMB. Esempi: soldi ricevuti in regalo od un intervento medico inaspettato.
 
 # Perché è nato
 
@@ -41,11 +50,7 @@ Ragion per cui, questa repository ha una cartella con le vecchie versioni del pr
 
 Notasi che questo programma è pensato per la gestione di obiettivi di medio-lungo periodo. Per "obiettivi" raggiungibli in meno di un mese, ci son già tool come Google Calendar.
 
-# Come avviare il programma.
 
-Per quanto riguarda le versioni 3 e 4, posizionarsi nella cartella che contiene il loro FE e BE e digitare "npm run start-all" per avviarli entrambi.
-
-Questo è un comando personalizzato definito con concurrently.
 
 # Problemi con l'intellisense? Stai programmando ma l'IDE non rileva gli errori? 
 
