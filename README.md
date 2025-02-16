@@ -14,9 +14,7 @@ Infine verranno prodotti report per aiutare nel monitoraggio e nell'autoanalisi.
 
 Una versione dettagliata ma abbastanza sintetica della logica del programma è contenuta nella foto nella cartella radice della repository ossia "Life-planner". Di seguito un vocabolario per interpretare i termini usati nei diagrammi.
 
-# Vocabolario
-
-Vocabolario. 
+# Vocabolario 
 
 TMI = Total Montly Income = I soldi che guadagni o prevedi di guadagnare in 1 mese. Es: stipendio. 
 
