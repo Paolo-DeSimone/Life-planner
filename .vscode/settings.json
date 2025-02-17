@@ -3,6 +3,6 @@
     "omnisharp.projectLoadTimeout": 120,
     "csharp.enableRoslynAnalyzers": true,
     "csharp.useModernNet": true,
-    "dotnet.defaultSolution": ".\\v4\\LifePlannerBE\\LifePlannerBE.sln"
+    "dotnet.defaultSolution": "BE.sln"
   }
   
