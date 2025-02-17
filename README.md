@@ -14,6 +14,15 @@ Infine verranno prodotti report per aiutare nel monitoraggio e nell'autoanalisi.
 
 Una versione dettagliata ma abbastanza sintetica della logica del programma è contenuta in "Life-planner/v5". Di seguito un vocabolario per interpretare i termini usati nei diagrammi.
 
+# Avviare la v5
+
+Da v5/v5Configs scrivere in console
+
+`npm run start-all`
+
+per avviare FE e BE contemporaneamente.
+
+
 # Vocabolario 
 
 TMI = Total Montly Income = I soldi che guadagni o prevedi di guadagnare in 1 mese. Es: stipendio. 
@@ -47,8 +56,6 @@ Avevo già un life planner su Google Sheets ma volevo qualcosa di più personali
 Ragion per cui, questa repository ha una cartella con le vecchie versioni del programma, tramite le quali si vede la proggressione dal semplice JS, al TS, all'uso di framework come Angular e la creazione di un BE con relativo DB.
 
 Notasi che questo programma è pensato per la gestione di obiettivi di medio-lungo periodo. Per "obiettivi" raggiungibli in meno di un mese, ci son già tool come Google Calendar.
-
-
 
 # Problemi con l'intellisense? Stai programmando ma l'IDE non rileva gli errori? 
 
