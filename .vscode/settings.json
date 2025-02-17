@@ -3,6 +3,6 @@
     "omnisharp.projectLoadTimeout": 120,
     "csharp.enableRoslynAnalyzers": true,
     "csharp.useModernNet": true,
-    "dotnet.defaultSolution": "BE.sln"
+    "dotnet.defaultSolution": "BEconfigs/BE.sln"
   }
   
