@@ -38,7 +38,7 @@ namespace Models
         /// <summary>
         /// Gets or sets a value indicating whether the user is verified (true if TempToken has been validated).
         /// </summary>
-        public string IsVerified { get; set; }
+        public bool IsVerified { get; set; }
 
         /// <summary>
         /// Gets or sets the total monthly income. 
