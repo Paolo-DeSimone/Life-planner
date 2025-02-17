@@ -12,7 +12,7 @@ Questo allo scopo di miglioramento personale: esser consapevoli e padroni delle 
 
 Infine verranno prodotti report per aiutare nel monitoraggio e nell'autoanalisi.
 
-Una versione dettagliata ma abbastanza sintetica della logica del programma è contenuta nella foto nella cartella radice della repository ossia "Life-planner". Di seguito un vocabolario per interpretare i termini usati nei diagrammi.
+Una versione dettagliata ma abbastanza sintetica della logica del programma è contenuta in "Life-planner/v5". Di seguito un vocabolario per interpretare i termini usati nei diagrammi.
 
 # Vocabolario 
 
