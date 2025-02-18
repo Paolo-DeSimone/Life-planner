@@ -7,18 +7,36 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
-    public class LifePlannerContext : DbContext
+    /// <summary>
+    /// LPContext represents a singole session with my DB. A session is an HTTP call.
+    /// Here are defined Db tables, properties and relationships using Entity Framework (EF).
+    /// Connection to database in provided in Program.cs and configured in the constructor of this class.
+    /// </summary>
+    public class LPContext : DbContext
     {
+        public LPContext(DbContextOptions<LPContext> DBConnection) : base(DBConnection) { }
         public DbSet<Users> Users { get; set; }
         public DbSet<Objectives> Objectives { get; set; }
         public DbSet<Expenses> Expenses { get; set; }
+
+        /// <summary>
+        /// Here relationships between tables are defined.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /** 1 OBJ is linked to only 1 User, but 1 user can have many OBJ.
+            Note: .HasOne defines a relationship with Users table. This is the reason why .WithMany can access u.Objectives, which is Users.Objectives.
+            In EF, defining a relationship from table A to B, but not explicitly doing the reverse, it is called "reverse navigation" or "reverse relationship"
+            
+            Let's say I need to define more relationships with other tables, like Objectives and Categories. 
+            To do it, I have to write a new "modelBuilder.Entity<Objectives>()" with the entities I want. I can not define all togheter.
+            **/
             modelBuilder.Entity<Objectives>()
                 .HasOne(o => o.User)
                 .WithMany(u => u.Objectives)
                 .HasForeignKey(o => o.UserId);
-
+            // Expences refers to 1 User only, but he can have multiple expences. 
             modelBuilder.Entity<Expenses>()
                         .HasOne(e => e.User)
                         .WithMany(u => u.Expenses)
