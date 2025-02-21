@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Models
+namespace BE.Models
 {
     /// <summary>
     /// LPContext represents a singole session with my DB. A session is an HTTP call.
@@ -15,9 +15,9 @@ namespace Models
     public class LPContext : DbContext
     {
         public LPContext(DbContextOptions<LPContext> DBConnection) : base(DBConnection) { }
-        public DbSet<Users> Users { get; set; }
-        public DbSet<Objectives> Objectives { get; set; }
-        public DbSet<Expenses> Expenses { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Objective> Objectives { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
 
         /// <summary>
         /// Here relationships between tables are defined.
@@ -32,12 +32,12 @@ namespace Models
             Let's say I need to define more relationships with other tables, like Objectives and Categories. 
             To do it, I have to write a new "modelBuilder.Entity<Objectives>()" with the entities I want. I can not define all togheter.
             **/
-            modelBuilder.Entity<Objectives>()
+            modelBuilder.Entity<Objective>()
                 .HasOne(o => o.User)
                 .WithMany(u => u.Objectives)
                 .HasForeignKey(o => o.UserId);
             // Expences refers to 1 User only, but he can have multiple expences. 
-            modelBuilder.Entity<Expenses>()
+            modelBuilder.Entity<Expense>()
                         .HasOne(e => e.User)
                         .WithMany(u => u.Expenses)
                         .HasForeignKey(e => e.UserId);
@@ -85,7 +85,7 @@ namespace Models
     // }
 
     // [Models.ValidateUserRelationships]
-    public class Users
+    public class User
     {
         // public Users()
         // {
@@ -174,11 +174,11 @@ namespace Models
         public int EMEfund { get; set; }
 
         // Navigation properties
-        public List<Objectives> Objectives { get; set; } = new List<Objectives>();
-        public List<Expenses> Expenses { get; set; } = new List<Expenses>();
+        public List<Objective> Objectives { get; set; } = new List<Objective>();
+        public List<Expense> Expenses { get; set; } = new List<Expense>();
     }
 
-    public class Objectives
+    public class Objective
     {
         /// <summary>
         /// Gets or sets the unique identifier for the objective.
@@ -237,7 +237,7 @@ namespace Models
         /// </summary>
         public int OMBsaved { get; set; }
 
-        public Users User { get; set; }
+        public User User { get; set; }
 
 
 
@@ -257,7 +257,7 @@ namespace Models
 
     }
 
-    public class Expenses
+    public class Expense
     {
         /// <summary>
         /// Gets or sets the unique identifier for an expance.
@@ -281,7 +281,16 @@ namespace Models
         [MaxLength(50)]
         public string Category { get; set; }
 
-        public Users User { get; set; }
+        public User User { get; set; }
 
     }
+
+    public class EmailVerificationToken
+    {
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
+        public string Token { get; set; }
+        public DateTime ExpiryDate { get; set; }
+    }
+    
 }

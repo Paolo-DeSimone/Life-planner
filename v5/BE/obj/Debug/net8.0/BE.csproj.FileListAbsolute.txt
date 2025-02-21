@@ -31,7 +31,6 @@ C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\obj\Debug\net8.0\B
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\obj\Debug\net8.0\BE.genruntimeconfig.cache
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\obj\Debug\net8.0\ref\BE.dll
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\BEconfigs\appsettings.Development.json
-C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\BEconfigs\Properties\launchSettings.json
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\Humanizer.dll
@@ -169,3 +168,4 @@ C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\t
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\BEconfigs\appsettings.json
+C:\Users\Paolo\Desktop\Coding\MainProjects\Life-planner\v5\BE\bin\Debug\net8.0\BCrypt.Net-Next.dll

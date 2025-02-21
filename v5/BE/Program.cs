@@ -1,39 +1,41 @@
 using System.IO;
-using Models;
+using BE.Models;
+using BE.Controllers;
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container. Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Aggiungi i servizi per Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers();
+
+// Carica la configurazione da BEconfigs/appsettings.json
 builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("BEconfigs/appsettings.json", optional: false, reloadOnChange: true);
 
-// Setting the DB connection. Note: connection string is defined in BEconfigs/appsettings.json
+// Configura la connessione al database (la stringa è definita in BEconfigs/appsettings.json)
 string SQLServerConn = builder.Configuration.GetConnectionString("SQLServerConn");
 builder.Services.AddDbContext<LPContext>(options => options.UseSqlServer(SQLServerConn));
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configura il middleware HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty; // Imposta la root come swagger
+    });
 }
 
 app.UseHttpsRedirection();
 
-app.MapGet("", () =>
-{
-
-})
-.WithName("test")
-.WithOpenApi();
-
-Console.WriteLine("FUNZIONA");
+app.MapControllers();
 
 app.Run();
