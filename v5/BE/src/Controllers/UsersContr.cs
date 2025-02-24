@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization; // Per Authorize
 
 using System.Net; // Per NetworkCredential
 using System.Net.Mail;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace BE.Controllers
@@ -37,7 +38,6 @@ namespace BE.Controllers
             return Ok();
         }
 
-
         private async Task SendVerificationEmail(User user)
         {
             // Configura il client SMTP (sostituisci i valori con quelli reali)
@@ -53,7 +53,7 @@ namespace BE.Controllers
             {
                 From = new MailAddress("codingtestspaolo@gmail.com"), // Inserisco l'email dell'account da cui inviare l'email
                 Subject = "Verifica il tuo account al Life Planner",
-                Body = $"Clicca sul link per verificare il tuo account: https://www.tuodominio.com/api/verify?token={user.TempToken}",
+                Body = $"Clicca sul link per verificare il tuo account: https://localhost:7092/api/User/verify?token={user.TempToken}",
                 IsBodyHtml = true,
             };
 
@@ -62,6 +62,23 @@ namespace BE.Controllers
             // Invia l'email
             await smtpClient.SendMailAsync(mailMessage);
         }
+
+        [HttpGet("verify")]
+        public async Task<IActionResult> VerifyUser(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest("Token non fornito.");
+            }
+            var user = await _userService.FindUserByToken(token);
+            if (user == null)
+            {
+                return NotFound("Utente non trovato.");
+            }
+            await _userService.VerifyUser(user, token);
+            return Redirect("http://localhost:4200");
+        }
+
 
 
         // Endpoint per il login utente
