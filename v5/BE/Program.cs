@@ -1,6 +1,8 @@
 using System.IO;
 using BE.Models;
 using BE.Controllers;
+using BE.Services;
+using BE.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -20,8 +22,11 @@ builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
 string SQLServerConn = builder.Configuration.GetConnectionString("SQLServerConn");
 builder.Services.AddDbContext<LPContext>(options => options.UseSqlServer(SQLServerConn));
 
+builder.Services.AddScoped<UsersService>();
+builder.Services.AddScoped<UsersRepo>();
 
 var app = builder.Build();
+
 
 // Configura il middleware HTTP
 if (app.Environment.IsDevelopment())

@@ -31,6 +31,7 @@ namespace BE.Controllers
         {
             var token = Guid.NewGuid().ToString();
             user.TempToken = token;
+            user.IsVerified = false;
             await _userService.Register(user);
             await SendVerificationEmail(user);
             return Ok();
@@ -43,14 +44,14 @@ namespace BE.Controllers
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("", ""), // Inserisco email e password dell'account Google a cui corrisponde la mail
+                Credentials = new NetworkCredential("codingtestspaolo@gmail.com", "ahux elop rxch lbqh"), // Inserisco email e password dell'account Google a cui corrisponde la mail
                 EnableSsl = true,
             };
 
             // Crea il messaggio email
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(""), // Inserisco l'email dell'account da cui inviare l'email
+                From = new MailAddress("codingtestspaolo@gmail.com"), // Inserisco l'email dell'account da cui inviare l'email
                 Subject = "Verifica il tuo account al Life Planner",
                 Body = $"Clicca sul link per verificare il tuo account: https://www.tuodominio.com/api/verify?token={user.TempToken}",
                 IsBodyHtml = true,

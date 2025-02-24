@@ -174,8 +174,8 @@ namespace BE.Models
         public int EMEfund { get; set; }
 
         // Navigation properties
-        public List<Objective> Objectives { get; set; } = new List<Objective>();
-        public List<Expense> Expenses { get; set; } = new List<Expense>();
+        public List<Objective> Objectives { get; set; } 
+        public List<Expense> Expenses { get; set; }
     }
 
     public class Objective
@@ -205,7 +205,7 @@ namespace BE.Models
         /// If an objective is deleted, OMBsaved will be set to 0 if IsCompleted = true. Otherwise It will increase the value od EMEfund in Users table.
         /// </summary>
         /// 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         /// <summary>
         /// If an objective is completed, OBJtarget has been reached, meaning OBJtarget = OMBsaved.
